@@ -4,9 +4,10 @@
 Summary: A fast metadata parser for yum
 Name: yum-metadata-parser
 Version: 1.1.2
-Release: 14.1%{?dist}
+Release: 16%{?dist}
 Source0: http://linux.duke.edu/projects/yum/download/%{name}/%{name}-%{version}.tar.gz
 Patch0: yum-metadata-parser-1.1.3.patch
+Patch1: BZ-612409-handle-2GB-rpms.patch
 License: GPLv2
 Group: Development/Libraries
 URL: http://linux.duke.edu/projects/yum/
@@ -25,6 +26,7 @@ Fast metadata parser for yum implemented in C.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__python} setup.py build
@@ -47,6 +49,14 @@ Fast metadata parser for yum implemented in C.
 %{python_sitelib_platform}/*egg-info
 
 %changelog
+* Thu Feb 24 2010 James Antill <james at fedoraproject.org> 1.1.2-16
+- Really handle rpms that are over 2GB, in the .xml to .sqlite conversion.
+- Resolves: bz#612409
+
+* Thu Feb 10 2010 James Antill <james at fedoraproject.org> 1.1.2-15
+- Handle rpms that are over 2GB, in the .xml to .sqlite conversion.
+- Resolves: bz#612409
+
 * Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 1.1.2-14.1
 - Rebuilt for RHEL 6
 
